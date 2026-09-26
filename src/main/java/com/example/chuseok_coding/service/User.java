@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
@@ -14,6 +15,7 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
+    @Setter
     Integer id;
     //NotNull과 달리 ""(빈 문자열), " "(공백 문자열) 허용 불가
     @NotBlank

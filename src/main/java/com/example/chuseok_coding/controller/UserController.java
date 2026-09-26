@@ -1,20 +1,22 @@
 package com.example.chuseok_coding.controller;
 
 import com.example.chuseok_coding.controller.dto.UserCreateRequestDto;
+import com.example.chuseok_coding.service.IRepository;
 import com.example.chuseok_coding.service.User;
-import com.example.chuseok_coding.service.UserServiceInterface;
+import com.example.chuseok_coding.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,7 +25,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserController {
-    UserServiceInterface userService;
+    UserService userService;
+
+    //Bean 객체들을 생성, 조립, 보관하는 컨테이너
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @ResponseBody
+    @GetMapping("/bean")
+    public String bean() {
+        return applicationContext.getBean(IRepository.class).toString();
+    }
 
     @GetMapping
     public String userPage(Model model) {
