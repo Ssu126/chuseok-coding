@@ -7,15 +7,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView userPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/users/list");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/users/1/detail", method = RequestMethod.GET)
+    @RequestMapping(value = "/1/detail", method = RequestMethod.GET)
     public ModelAndView detailPage(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("id", 1);
