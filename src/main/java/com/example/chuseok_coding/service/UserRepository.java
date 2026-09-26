@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserRepository {
+public class UserRepository implements IRepository<Integer, User> {
     private static final Map<Integer, User> users;
 
     static {
@@ -27,6 +27,7 @@ public class UserRepository {
     public User save(User entity) {
         int generatedId = users.size() + 1;
         entity.setId(generatedId);
-        return users.put(generatedId, entity);
+        users.put(generatedId, entity);
+        return users.get(generatedId);
     }
 }

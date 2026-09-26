@@ -1,5 +1,6 @@
 package com.example.chuseok_coding.service;
 
+import com.example.chuseok_coding.controller.dto.UserResponseDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,17 +10,19 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
 
-    public User findById(Integer id) {
+    public UserResponseDto findById(Integer id) {
         User user = userRepository.findById(id);
-        return user;
+        return UserResponseDto.from(user);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserResponseDto> findAll() {
+        return userRepository.findAll().stream()
+            .map(UserResponseDto::from)
+            .toList();
     }
 
-    public User save(String name, Integer age, String job, String specialty) {
+    public UserResponseDto save(String name, Integer age, String job, String specialty) {
         User user = userRepository.save(new User(null, name, age, job, specialty));
-        return user;
+        return UserResponseDto.from(user);
     }
 }

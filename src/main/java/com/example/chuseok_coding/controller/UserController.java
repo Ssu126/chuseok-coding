@@ -1,6 +1,7 @@
 package com.example.chuseok_coding.controller;
 
 import com.example.chuseok_coding.controller.dto.UserCreateRequestDto;
+import com.example.chuseok_coding.controller.dto.UserResponseDto;
 import com.example.chuseok_coding.service.IRepository;
 import com.example.chuseok_coding.service.User;
 import com.example.chuseok_coding.service.UserService;
@@ -39,7 +40,7 @@ public class UserController {
 
     @GetMapping
     public String userPage(Model model) {
-        List<User> users = userService.findAll();
+        List<UserResponseDto> users = userService.findAll();
         model.addAttribute("users", users);
         return "/users/list";
     }
@@ -47,7 +48,7 @@ public class UserController {
     //users/detail?id=1
     @GetMapping(value = "/detail")
     public String detailPage(@RequestParam Integer id, Model model) {
-        User user = userService.findById(id);
+        UserResponseDto user = userService.findById(id);
         model.addAttribute("id", user.getId());
         model.addAttribute("name", user.getName());
         model.addAttribute("age", user.getAge());
@@ -58,16 +59,16 @@ public class UserController {
 
     @ResponseBody
     @GetMapping(value = "/data")
-    public User detailData(@RequestParam Integer id) {
-        User user = userService.findById(id);
+    public UserResponseDto detailData(@RequestParam Integer id) {
+        UserResponseDto user = userService.findById(id);
         return user;
     }
 
     @ResponseBody
     @PostMapping()
     //ModelAttribute는 Setter/생성자로 값을 주입하지만, RequestBody는 JSON을 파라싱하여 주입
-    public User save(@RequestBody @Valid UserCreateRequestDto request) {
-        User user = userService.save(request.getName(), request.getAge(), request.getJob(), request.getSpecialty());
+    public UserResponseDto save(@RequestBody @Valid UserCreateRequestDto request) {
+        UserResponseDto user = userService.save(request.getName(), request.getAge(), request.getJob(), request.getSpecialty());
         return user;
     }
 }
