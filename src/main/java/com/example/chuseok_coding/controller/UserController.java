@@ -5,10 +5,9 @@ import com.example.chuseok_coding.service.UserServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/users")
@@ -17,22 +16,20 @@ public class UserController {
     private UserServiceInterface AUserService;
 
     @GetMapping
-    public ModelAndView userPage(ModelAndView modelAndView) {
+    public String userPage(ModelMap model) {
         List<User> users = AUserService.findAll();
-        modelAndView.addObject("users", users);
-        modelAndView.setViewName("/users/list");
-        return modelAndView;
+        model.addAttribute("users", users);
+        return "/users/list";
     }
 
     @GetMapping(value = "/1/detail")
-    public ModelAndView detailPage(ModelAndView modelAndView) {
+    public String detailPage(ModelMap model) {
         User user = AUserService.findById(1);
-        modelAndView.addObject("id", user.getId());
-        modelAndView.addObject("name", user.getName());
-        modelAndView.addObject("age", user.getAge());
-        modelAndView.addObject("job", user.getJob());
-        modelAndView.addObject("specialty", user.getSpecialty());
-        modelAndView.setViewName("/users/detail");
-        return modelAndView;
+        model.addAttribute("id", user.getId());
+        model.addAttribute("name", user.getName());
+        model.addAttribute("age", user.getAge());
+        model.addAttribute("job", user.getJob());
+        model.addAttribute("specialty", user.getSpecialty());
+        return "/users/detail";
     }
 }
