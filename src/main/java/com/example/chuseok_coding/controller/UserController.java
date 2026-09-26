@@ -60,9 +60,11 @@ public class UserController {
 
     @ResponseBody
     @GetMapping(value = "/data")
-    public UserResponseDto detailData(@RequestParam Integer id) {
+    public ResponseEntity<UserResponseDto> detailData(@RequestParam Integer id) {
         UserResponseDto user = userService.findById(id);
-        return user;
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(user);
     }
 
     @ResponseBody
