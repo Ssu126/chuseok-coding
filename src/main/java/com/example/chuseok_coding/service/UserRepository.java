@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,11 +19,8 @@ public class UserRepository implements IRepository<Integer, User> {
     }
 
     public User findById(Integer id) {
-        User retrieved = users.get(id);
-        if (Objects.isNull(retrieved)) {
-            throw new RuntimeException("유저가 존재하지 않습니다. id : " + id);
-        }
-        return retrieved;
+        Optional<User> retrieved = Optional.ofNullable(users.get(id));
+        return retrieved.orElseThrow(() -> new RuntimeException("유저가 존재하지 않습니다. id : " + id));
     }
 
     public List<User> findAll() {
