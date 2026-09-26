@@ -14,15 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    private List<UserServiceInterface> userService;
+    private UserServiceInterface AUserService;
 
     @GetMapping
-    public ModelAndView userPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        userService.forEach((each) -> {
-            System.out.println(each.getClass().getSimpleName());
-        });
-        UserServiceInterface AUserService = userService.get(0);
+    public ModelAndView userPage(ModelAndView modelAndView) {
         List<User> users = AUserService.findAll();
         modelAndView.addObject("users", users);
         modelAndView.setViewName("/users/list");
@@ -30,12 +25,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/1/detail")
-    public ModelAndView detailPage(Model model) {
-        ModelAndView modelAndView = new ModelAndView();
-        userService.forEach((each) -> {
-            System.out.println(each.getClass().getSimpleName());
-        });
-        UserServiceInterface AUserService = userService.get(0);
+    public ModelAndView detailPage(ModelAndView modelAndView) {
         User user = AUserService.findById(1);
         modelAndView.addObject("id", user.getId());
         modelAndView.addObject("name", user.getName());
