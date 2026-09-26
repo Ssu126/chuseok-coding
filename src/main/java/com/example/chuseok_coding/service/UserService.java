@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserService {
+public class UserService implements UserServiceInterface{
     private static final Map<Integer, User> users;
 
     static {

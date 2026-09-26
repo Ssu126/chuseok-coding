@@ -1,7 +1,7 @@
 package com.example.chuseok_coding.controller;
 
 import com.example.chuseok_coding.service.User;
-import com.example.chuseok_coding.service.UserService;
+import com.example.chuseok_coding.service.UserServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserServiceInterface userService;
 
     @GetMapping
     public ModelAndView userPage() {
