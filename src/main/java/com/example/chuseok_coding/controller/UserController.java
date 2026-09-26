@@ -3,7 +3,6 @@ package com.example.chuseok_coding.controller;
 import com.example.chuseok_coding.controller.dto.UserCreateRequestDto;
 import com.example.chuseok_coding.controller.dto.UserResponseDto;
 import com.example.chuseok_coding.service.IRepository;
-import com.example.chuseok_coding.service.User;
 import com.example.chuseok_coding.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
