@@ -3,6 +3,7 @@ package com.example.chuseok_coding.controller;
 import com.example.chuseok_coding.controller.dto.UserCreateRequestDto;
 import com.example.chuseok_coding.service.User;
 import com.example.chuseok_coding.service.UserServiceInterface;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +54,7 @@ public class UserController {
     @ResponseBody
     @PostMapping()
     //ModelAttribute는 Setter/생성자로 값을 주입하지만, RequestBody는 JSON을 파라싱하여 주입
-    public User save(@RequestBody UserCreateRequestDto request) {
+    public User save(@RequestBody @Valid UserCreateRequestDto request) {
         User user = userService.save(request.getName(), request.getAge(), request.getJob(), request.getSpecialty());
         return user;
     }
