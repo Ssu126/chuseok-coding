@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +51,8 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public User save(@ModelAttribute UserCreateRequestDto request) {
+    //ModelAttribute는 Setter/생성자로 값을 주입하지만, RequestBody는 JSON을 파라싱하여 주입
+    public User save(@RequestBody UserCreateRequestDto request) {
         User user = userService.save(request.getName(), request.getAge(), request.getJob(), request.getSpecialty());
         return user;
     }
