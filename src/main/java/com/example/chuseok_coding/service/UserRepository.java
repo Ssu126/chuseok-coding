@@ -3,6 +3,7 @@ package com.example.chuseok_coding.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,7 +18,11 @@ public class UserRepository implements IRepository<Integer, User> {
     }
 
     public User findById(Integer id) {
-        return users.get(id);
+        User retrieved = users.get(id);
+        if (Objects.isNull(retrieved)) {
+            throw new RuntimeException("유저가 존재하지 않습니다. id : " + id);
+        }
+        return retrieved;
     }
 
     public List<User> findAll() {
