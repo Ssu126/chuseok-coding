@@ -63,12 +63,12 @@ public class UserController {
     public BaseResponse<UserResponseDto> detailData(@RequestParam Integer id) {
         try {
             UserResponseDto user = userService.findById(id);
-            return BaseResponse.of(true, null, null, user);
+            return BaseResponse.success(user);
         //CustomException으로 수정하지 않음
         } catch (RuntimeException e) {
-            return BaseResponse.of(false, HttpStatus.INTERNAL_SERVER_ERROR.name(), e.getMessage(), null);
+            return BaseResponse.failure();
         } catch (Exception e) {
-            return BaseResponse.of(false, "Z10", "내부에서 에러가 발생했습니다. 추가 메시지 : " + HttpStatus.INTERNAL_SERVER_ERROR, null);
+            return BaseResponse.failure();
         }
     }
 
@@ -79,13 +79,11 @@ public class UserController {
         try {
             UserResponseDto user = userService.save(request.getName(), request.getAge(),
                 request.getJob(), request.getSpecialty());
-            return BaseResponse.of(true, null, null, user);
+            return BaseResponse.success(user);
         } catch (RuntimeException e) {
-            return BaseResponse.of(false, HttpStatus.INTERNAL_SERVER_ERROR.name(), e.getMessage(),
-                null);
+            return BaseResponse.failure();
         } catch (Exception e) {
-            return BaseResponse.of(false, "Z10",
-                "내부에서 에러가 발생했습니다. 추가 메시지 : " + HttpStatus.INTERNAL_SERVER_ERROR, null);
+            return BaseResponse.failure();
         }
     }
 }

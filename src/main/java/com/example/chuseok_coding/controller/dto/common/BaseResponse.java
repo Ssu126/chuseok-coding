@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -23,4 +24,11 @@ public class BaseResponse<T> {
         return new BaseResponse<T>(success, type, message, body);
     }
 
+    public static <T> BaseResponse<T> success(T body) {
+        return new BaseResponse<T>(true, null, null, body);
+    }
+
+    public static <T> BaseResponse<T> failure() {
+        return new BaseResponse<T>(false, "Z10", "내부에서 에러가 발생했습니다. 추가 메시지 : " + HttpStatus.INTERNAL_SERVER_ERROR, null);
+    }
 }
