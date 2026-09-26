@@ -26,11 +26,11 @@ public class UserController {
     @GetMapping(value = "/1/detail")
     public String detailPage(Model model) {
         User user = AUserService.findById(1);
-//        model.addAttribute("id", user.getId());
-//        model.addAttribute("name", user.getName());
-//        model.addAttribute("age", user.getAge());
-//        model.addAttribute("job", user.getJob());
-//        model.addAttribute("specialty", user.getSpecialty());
+        model.addAttribute("id", user.getId());
+        model.addAttribute("name", user.getName());
+        model.addAttribute("age", user.getAge());
+        model.addAttribute("job", user.getJob());
+        model.addAttribute("specialty", user.getSpecialty());
         return "/users/detail";
     }
 
