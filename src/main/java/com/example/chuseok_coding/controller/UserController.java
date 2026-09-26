@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,10 +66,12 @@ public class UserController {
     }
 
     @ResponseBody
-    @PostMapping()
-    //ModelAttribute는 Setter/생성자로 값을 주입하지만, RequestBody는 JSON을 파라싱하여 주입
-    public UserResponseDto save(@RequestBody @Valid UserCreateRequestDto request) {
+    @PostMapping
+    //ResponseEntity는 Http 상태 코드와 헤더를 동적으로 제어
+    public ResponseEntity<UserResponseDto> save(@RequestBody @Valid UserCreateRequestDto request) {
         UserResponseDto user = userService.save(request.getName(), request.getAge(), request.getJob(), request.getSpecialty());
-        return user;
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(user);
     }
 }
