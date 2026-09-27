@@ -2,6 +2,7 @@ package com.example.chuseok_coding.controller.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -23,14 +24,15 @@ public enum JobType {
     String name;
     List<String> titles;
 
-    //json 라이브러리에 주입 통로 선언
-    @JsonCreator
-    public static JobType deserialize(String job) {
+    //json 라이브러리에 주입 통로 선언, 텍스트 문자열 하나만 들어가는 모드 적용
+    //예시: {"name" : "Developer" } -> "Developer"
+    @JsonCreator(mode = Mode.DELEGATING)
+    public static JobType deserialize(String name) {
         for (JobType each : JobType.values()) {
-            if (each.getName().equals(job)) {
+            if (each.getName().equals(name)) {
                 return each;
             }
         }
-        throw new RuntimeException("JobType 내 해당하는 Enum 이 존재하지 않습니다. name : " + job);
+        throw new RuntimeException("JobType 내 해당하는 Enum 이 존재하지 않습니다. name : " + name);
     }
 }
