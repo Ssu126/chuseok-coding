@@ -12,12 +12,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-//Controller 앞단에서 발생하는 에러를 캐치하기 위함
-@ControllerAdvice
+//Controller 앞단에서 발생하는 에러를 캐치하기 위함 + ResponseBody
+@RestControllerAdvice
 public class CustomExceptionHandler {
-    @ResponseBody
     @ExceptionHandler
     public BaseResponse<Void> handle(CustomException e) {
         ExceptionType type = e.getType();
@@ -26,7 +26,6 @@ public class CustomExceptionHandler {
         return BaseResponse.failure(type);
     }
 
-    @ResponseBody
     @ExceptionHandler
     public BaseResponse<List<FieldErrorDto>> handle(MethodArgumentNotValidException e) {
         List<FieldErrorDto> errors = new ArrayList<>();
@@ -45,7 +44,6 @@ public class CustomExceptionHandler {
         return BaseResponse.failure(ExceptionType.INVALID_INPUT, errors);
     }
 
-    @ResponseBody
     @ExceptionHandler
     public BaseResponse<Void> handle(Exception e) {
         log.error(e.getMessage(), e);
