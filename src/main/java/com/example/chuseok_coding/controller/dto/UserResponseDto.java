@@ -30,8 +30,7 @@ public class UserResponseDto {
     Integer age;
     String job;
     String specialty;
-    //기존 날짜 포맷 대신 특정 문자열 형식으로 출력
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateFormat
     LocalDateTime createdAt;
     String address;
     String postcode;
