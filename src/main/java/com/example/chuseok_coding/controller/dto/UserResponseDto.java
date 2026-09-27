@@ -3,6 +3,7 @@ package com.example.chuseok_coding.controller.dto;
 import com.example.chuseok_coding.service.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,10 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserResponseDto {
+    //직렬화/역직렬화 시 자바 변수 이름과 JSON의 Key 이름을 다르게 매핑
+    @JsonProperty("userId")
     Integer id;
+    @JsonProperty("username")
     String name;
     Integer age;
     String job;
