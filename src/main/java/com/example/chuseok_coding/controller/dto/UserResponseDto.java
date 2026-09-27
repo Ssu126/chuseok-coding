@@ -4,6 +4,7 @@ import com.example.chuseok_coding.service.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +12,13 @@ import lombok.experimental.FieldDefaults;
 
 //address가 null이면 화면 출력 시 보이지 않음
 @JsonInclude(Include.NON_NULL)
+//Json 반환 시 프로퍼티 노출 순서 결정
+@JsonPropertyOrder({"userId", "username"})
 @Getter
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserResponseDto {
-    //직렬화/역직렬화 시 자바 변수 이름과 JSON의 Key 이름을 다르게 매핑
+    //Json 반환 시 자바 변수 이름과 JSON의 Key 이름을 다르게 매용
     @JsonProperty("userId")
     Integer id;
     @JsonProperty("username")
