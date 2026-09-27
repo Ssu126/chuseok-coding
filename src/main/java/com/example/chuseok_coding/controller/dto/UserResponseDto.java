@@ -1,6 +1,7 @@
 package com.example.chuseok_coding.controller.dto;
 
 import com.example.chuseok_coding.service.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,7 +22,8 @@ public class UserResponseDto {
     //Json 반환 시 자바 변수 이름과 JSON의 Key 이름을 다르게 매용
     @JsonProperty("userId")
     Integer id;
-    @JsonProperty("username")
+    //Json 반환 시 특정 프로퍼티 제외
+    @JsonIgnore
     String name;
     Integer age;
     String job;
