@@ -3,6 +3,7 @@ package com.example.chuseok_coding.service;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +26,5 @@ public class User {
     @NotNull
     String job;
     String specialty;
+    LocalDateTime createdAt;
 }

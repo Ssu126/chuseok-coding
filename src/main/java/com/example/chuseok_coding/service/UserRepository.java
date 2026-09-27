@@ -1,5 +1,6 @@
 package com.example.chuseok_coding.service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +14,10 @@ public class UserRepository implements IRepository<Integer, User> {
 
     static {
         users = new HashMap<>();
-        users.put(1, new User(1, "su1", 10, "Developer", "Backend"));
-        users.put(2, new User(2, "su2", 20, "Developer", "Frontend"));
-        users.put(3, new User(3, "su3", 30, "Engineer", "DevOps/SRE"));
+        //LocalDateTime.now().plusMinutes(a) -> 현재 서버의 날짜/시간을 기준으로 a분 뒤 계산
+        users.put(1, new User(1, "su1", 10, "Developer", "Backend", LocalDateTime.now().plusMinutes(10)));
+        users.put(2, new User(2, "su2", 20, "Developer", "Frontend", LocalDateTime.now().plusMinutes(20)));
+        users.put(3, new User(3, "su3", 30, "Engineer", "DevOps/SRE", LocalDateTime.now().plusMinutes(30)));
     }
 
     public User findById(Integer id) {
