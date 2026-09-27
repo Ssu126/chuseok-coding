@@ -1,6 +1,7 @@
 package com.example.chuseok_coding.controller.dto;
 
 import com.example.chuseok_coding.service.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -23,12 +24,14 @@ public class UserResponseDto {
     //Json 반환 시 자바 변수 이름과 JSON의 Key 이름을 다르게 매용
     @JsonProperty("userId")
     Integer id;
-    //Json 반환 시 특정 프로퍼티 제외
+    //Json 반환 시 특정 프로퍼티 제환
     @JsonIgnore
     String name;
     Integer age;
     String job;
     String specialty;
+    //기존 날짜 포맷 대신 특정 문자열 형식으로 출력
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime createdAt;
     String address;
     String postcode;
