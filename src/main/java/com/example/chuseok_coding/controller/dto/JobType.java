@@ -18,8 +18,11 @@ public enum JobType {
     DEVELOPER("Developer", Arrays.asList("Frontend", "Backend")),
     ENGINEER("Engineer", Arrays.asList("DevOps", "SRE"));
 
-    //Json 변환 시 name에 적힌 문자열만 출력
-    @JsonValue
     String name;
     List<String> titles;
+
+    @JsonValue
+    public String serialize() {
+        return String.format("명칭 : %s | 종류 : %s", this.name, titles.toString());
+    }
 }
