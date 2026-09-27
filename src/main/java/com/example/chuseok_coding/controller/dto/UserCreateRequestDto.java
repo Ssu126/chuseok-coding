@@ -9,6 +9,6 @@ import lombok.experimental.FieldDefaults;
 public class UserCreateRequestDto {
     String name;
     Integer age;
-    String job;
+    JobType job;
     String specialty = "(empty)";
 }

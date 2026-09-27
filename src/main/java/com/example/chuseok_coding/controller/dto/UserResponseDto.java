@@ -1,7 +1,6 @@
 package com.example.chuseok_coding.controller.dto;
 
 import com.example.chuseok_coding.service.User;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -28,7 +27,7 @@ public class UserResponseDto {
     @JsonIgnore
     String name;
     Integer age;
-    String job;
+    JobType job;
     String specialty;
     @DateFormat
     LocalDateTime createdAt;

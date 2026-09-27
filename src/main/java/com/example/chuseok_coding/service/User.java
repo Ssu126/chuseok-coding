@@ -1,5 +1,6 @@
 package com.example.chuseok_coding.service;
 
+import com.example.chuseok_coding.controller.dto.JobType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +25,7 @@ public class User {
     @Min(10)
     Integer age;
     @NotNull
-    String job;
+    JobType job;
     String specialty;
     LocalDateTime createdAt;
 }

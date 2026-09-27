@@ -1,5 +1,6 @@
 package com.example.chuseok_coding.service;
 
+import com.example.chuseok_coding.controller.dto.JobType;
 import com.example.chuseok_coding.controller.dto.UserResponseDto;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +23,7 @@ public class UserService {
             .toList();
     }
 
-    public UserResponseDto save(String name, Integer age, String job, String specialty) {
+    public UserResponseDto save(String name, Integer age, JobType job, String specialty) {
         User user = userRepository.save(new User(null, name, age, job, specialty, LocalDateTime.now()));
         return UserResponseDto.from(user);
     }
