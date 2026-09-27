@@ -1,5 +1,6 @@
 package com.example.chuseok_coding.controller.dto.common;
 
+import com.example.chuseok_coding.exception.ExceptionType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.AccessLevel;
@@ -28,7 +29,15 @@ public class BaseResponse<T> {
         return new BaseResponse<T>(true, null, null, body);
     }
 
-    public static <T> BaseResponse<T> failure() {
-        return new BaseResponse<T>(false, "Z10", "내부에서 에러가 발생했습니다. 추가 메시지 : " + HttpStatus.INTERNAL_SERVER_ERROR, null);
+    public static <T> BaseResponse<T> failure(ExceptionType type) {
+        return new BaseResponse<T>(false, type.getType(), type.getDesc(), null);
+    }
+
+    public static <T> BaseResponse<T> failure(ExceptionType type, T body) {
+        return new BaseResponse<T>(false, type.getType(), type.getDesc(), body);
+    }
+
+    public static <T> BaseResponse<T> failure(ExceptionType type, String message) {
+        return new BaseResponse<T>(false, type.getType(), type.getDesc() + message, null);
     }
 }
