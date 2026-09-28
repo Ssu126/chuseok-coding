@@ -9,12 +9,15 @@ import com.example.chuseok_coding.service.IRepository;
 import com.example.chuseok_coding.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,34 +66,41 @@ public class UserController {
 
     @ResponseBody
     @GetMapping(value = "/data")
-    public BaseResponse<UserResponseDto> detailData(@RequestParam Integer id) {
+    public ResponseEntity<UserResponseDto> detailData(@RequestParam Integer id) {
         try {
             UserResponseDto user = userService.findById(id);
-            return BaseResponse.success(user);
-        } catch (CustomException e) {
-            //뒤에 e를 붙여줘야 상세한 경로가 출력됨
-            log.warn(e.getMessage(), e);
-            return BaseResponse.failure(e.getType());
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return BaseResponse.failure(ExceptionType.UNCLASSIFIED_ERROR);
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(user);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(null);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(null);
         }
     }
 
     @ResponseBody
     @PostMapping
     //ResponseEntity는 Http 상태 코드와 헤더를 동적으로 제어
-    public BaseResponse<UserResponseDto> save(@RequestBody @Valid UserCreateRequestDto request) {
+    public ResponseEntity<UserResponseDto> save(@RequestBody @Valid UserCreateRequestDto request) {
         try {
             UserResponseDto user = userService.save(request.getName(), request.getAge(),
                 request.getJob(), request.getSpecialty());
-            return BaseResponse.success(user);
-        } catch (CustomException e) {
-            log.warn(e.getMessage(), e);
-            return BaseResponse.failure(e.getType());
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-            return BaseResponse.failure(ExceptionType.UNCLASSIFIED_ERROR);
+            return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(user);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(null);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(null);
         }
     }
 }
