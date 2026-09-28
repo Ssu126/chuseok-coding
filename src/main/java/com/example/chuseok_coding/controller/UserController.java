@@ -2,6 +2,7 @@ package com.example.chuseok_coding.controller;
 
 import com.example.chuseok_coding.controller.dto.UserCreateRequestDto;
 import com.example.chuseok_coding.controller.dto.UserResponseDto;
+import com.example.chuseok_coding.exception.CustomException;
 import com.example.chuseok_coding.exception.UserNotFoundException;
 import com.example.chuseok_coding.service.IRepository;
 import com.example.chuseok_coding.service.UserService;
@@ -70,13 +71,9 @@ public class UserController {
             return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(user);
-        } catch (NoSuchElementException | UserNotFoundException e) {
+        } catch (CustomException e) {
             return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(null);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(e.getType().getStatus())
                 .body(null);
         } catch (Exception e) {
             return ResponseEntity
@@ -95,13 +92,9 @@ public class UserController {
             return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(user);
-        } catch (NoSuchElementException | UserNotFoundException e) {
+        } catch (CustomException e) {
             return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(null);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(e.getType().getStatus())
                 .body(null);
         } catch (Exception e) {
             return ResponseEntity
