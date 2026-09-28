@@ -2,6 +2,7 @@ package com.example.chuseok_coding.controller;
 
 import com.example.chuseok_coding.controller.dto.UserCreateRequestDto;
 import com.example.chuseok_coding.controller.dto.UserResponseDto;
+import com.example.chuseok_coding.exception.UserNotFoundException;
 import com.example.chuseok_coding.service.IRepository;
 import com.example.chuseok_coding.service.UserService;
 import jakarta.validation.Valid;
@@ -69,7 +70,7 @@ public class UserController {
             return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(user);
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | UserNotFoundException e) {
             return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(null);
@@ -94,7 +95,7 @@ public class UserController {
             return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(user);
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | UserNotFoundException e) {
             return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(null);

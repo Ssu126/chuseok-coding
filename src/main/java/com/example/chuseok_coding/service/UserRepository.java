@@ -1,6 +1,7 @@
 package com.example.chuseok_coding.service;
 
 import com.example.chuseok_coding.controller.dto.JobType;
+import com.example.chuseok_coding.exception.UserNotFoundException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,7 @@ public class UserRepository implements IRepository<Integer, User> {
 
     public User findById(Integer id) {
         Optional<User> retrieved = Optional.ofNullable(users.get(id));
-        return retrieved.orElseThrow(() -> new IllegalArgumentException("유저가 존재하지 않습니다. id : " + id));
+        return retrieved.orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않습니다. id : " + id));
     }
 
     public List<User> findAll() {
