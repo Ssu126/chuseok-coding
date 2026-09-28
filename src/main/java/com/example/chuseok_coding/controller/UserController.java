@@ -2,9 +2,6 @@ package com.example.chuseok_coding.controller;
 
 import com.example.chuseok_coding.controller.dto.UserCreateRequestDto;
 import com.example.chuseok_coding.controller.dto.UserResponseDto;
-import com.example.chuseok_coding.controller.dto.common.BaseResponse;
-import com.example.chuseok_coding.exception.CustomException;
-import com.example.chuseok_coding.exception.ExceptionType;
 import com.example.chuseok_coding.service.IRepository;
 import com.example.chuseok_coding.service.UserService;
 import jakarta.validation.Valid;
@@ -80,6 +77,10 @@ public class UserController {
             return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(null);
+        } catch (Exception e) {
+            return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(null);
         }
     }
 
@@ -100,6 +101,10 @@ public class UserController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(null);
+        } catch (Exception e) {
+            return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(null);
         }
     }
