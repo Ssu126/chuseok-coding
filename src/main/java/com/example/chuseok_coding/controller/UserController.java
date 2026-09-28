@@ -72,10 +72,12 @@ public class UserController {
                 .status(HttpStatus.OK)
                 .body(user);
         } catch (CustomException e) {
+            log.warn(e.getMessage(), e);
             return ResponseEntity
                 .status(e.getType().getStatus())
                 .body(null);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(null);
@@ -93,10 +95,12 @@ public class UserController {
                 .status(HttpStatus.CREATED)
                 .body(user);
         } catch (CustomException e) {
+            log.warn(e.getMessage(), e);
             return ResponseEntity
                 .status(e.getType().getStatus())
                 .body(null);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(null);
