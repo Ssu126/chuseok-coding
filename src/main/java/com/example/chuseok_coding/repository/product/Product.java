@@ -1,0 +1,32 @@
+package com.example.chuseok_coding.repository.product;
+
+import com.example.chuseok_coding.repository.BaseEntity;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@ToString(callSuper = true)
+@Getter
+public class Product extends BaseEntity {
+    private static int PRODUCT_CURRENT_ID = 0;
+    private static int idGenerate() {
+        return ++PRODUCT_CURRENT_ID;
+    }
+
+    private String name;
+    private int price;
+    @Setter
+    private int stock;
+
+    private Product(Integer id, String name, int price, int stock, Integer userId) {
+        super(id, userId);
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
+
+    public static Product create(String name, int price, int stock, /* 누가 상품을 생성했는지 */  Integer userId) {
+        int generatedId = idGenerate();
+        return new Product(generatedId, name, price, stock, userId);
+    }
+}
