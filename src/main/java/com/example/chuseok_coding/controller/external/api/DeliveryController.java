@@ -1,7 +1,11 @@
 package com.example.chuseok_coding.controller.external.api;
 
+import com.example.chuseok_coding.application.payment.DeliveryApplication;
 import com.example.chuseok_coding.repository.payment.PaymentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,5 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 // -> 클래스에 @RestController 적으면 = 각각의 메서드에 @ResponseBody 안적어줘도됨
 @RequiredArgsConstructor
 public class DeliveryController {
-    private final PaymentRepository paymentRepository;
+    private final DeliveryApplication deliveryApplication;
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/external/api/payments/{id}/in-delivery")
+    public DeliveryResponseDto delivery(@PathVariable Integer id) {
+        return deliveryApplication.delivery(id);
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/external/api/payments/{id}/delivery-complete")
+    public DeliveryResponseDto delivered(@PathVariable Integer id) {
+        return deliveryApplication.delivered(id);
+    }
 }

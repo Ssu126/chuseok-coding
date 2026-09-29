@@ -1,6 +1,7 @@
 package com.example.chuseok_coding.repository;
 
 import com.example.chuseok_coding.common.context.UserContext;
+import java.util.Optional;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -48,7 +49,8 @@ public abstract class BaseEntity {
      * currentUserId - 어떤 유저가 값을 바꿨는지 추적하기 위함 <- Auditing
      */
     protected void updated() {
-        Integer currentUserId = UserContext.getUserId();
+        //누가 구매를 했는지
+        Integer currentUserId = Optional.ofNullable(UserContext.getUserId()).orElse(this.createdBy);
 
         this.updatedAt = LocalDateTime.now();
         this.updatedBy = currentUserId;

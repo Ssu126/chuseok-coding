@@ -56,6 +56,23 @@ public class Payment extends BaseEntity {
         super.updated();
     }
 
+    public void delivering() {
+        if (this.status.compareTo(PaymentStatus.IN_DELIVERY) > 0) {
+            throw new RuntimeException("배송 중으로 상태를 바꿀 수 없는 결제건입니다 - payment : " + this.toString());
+        }
+        this.status = PaymentStatus.IN_DELIVERY;
+        super.updated();
+    }
+
+    public void delivered() {
+        if (this.status.compareTo(PaymentStatus.DELIVERY_COMPLETE) > 0) {
+            throw new RuntimeException("배송 완료로 상태를 바꿀 수 없는 결제건입니다 - payment : " + this.toString());
+        }
+        this.status = PaymentStatus.DELIVERY_COMPLETE;
+        this.deliveredAt = LocalDateTime.now();
+        super.updated();
+    }
+
     public void cancel(Integer requestedUserId) {
         if (!requestedUserId.equals(super.createdBy)) {
             throw new RuntimeException("취소하려는 유져와 취소하려는 결제를 수행한 유저가 다릅니다 - requestedUserId : " + requestedUserId + " != paymentUserId: " + super.createdBy);
