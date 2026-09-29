@@ -1,8 +1,10 @@
 package com.example.chuseok_coding.controller.admin.api.dto;
 
 import com.example.chuseok_coding.repository.product.Product;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
 public class ProductAdminResponseDto {
     private final Integer id;
