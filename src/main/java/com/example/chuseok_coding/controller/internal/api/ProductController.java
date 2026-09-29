@@ -1,8 +1,7 @@
 package com.example.chuseok_coding.controller.internal.api;
 
+import com.example.chuseok_coding.application.product.IProductApplication;
 import com.example.chuseok_coding.controller.internal.api.dto.ProductResponseDto;
-import com.example.chuseok_coding.repository.product.ProductApplication;
-import com.example.chuseok_coding.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,14 @@ import java.util.List;
 // -> 클래스에 @RestController 적으면 = 각각의 메서드에 @ResponseBody 안적어줘도됨
 @RequiredArgsConstructor
 public class ProductController {
-    private final ProductApplication productApplication;
+    /**
+     * Hexagonal (Port and Adaptor) 아키텍쳐 도입 시
+     *  - Controller <= Primary Adaptor = Driving Adaptor
+     *  - Application 인터페이스 <= Input Port
+     *  - Repository 인터페이스 <= Output Port
+     *  - Repository 구체클래스 <= Secondary Adaptor = Driven Adaptor
+     */
+    private final IProductApplication productApplication;
 
     @RequestMapping(method = RequestMethod.GET, value = "/internal/api/products")
     public List<ProductResponseDto> retrieve() {

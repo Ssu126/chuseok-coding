@@ -1,6 +1,7 @@
-package com.example.chuseok_coding.repository.product;
+package com.example.chuseok_coding.application.product;
 
 import com.example.chuseok_coding.controller.internal.api.dto.ProductResponseDto;
+import com.example.chuseok_coding.repository.product.Product;
 import com.example.chuseok_coding.service.product.ProductService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ProductApplication {
+public class ProductApplication implements IProductApplication {
     private final ProductService productService;
 
     public List<ProductResponseDto> retrieve() {

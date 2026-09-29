@@ -1,6 +1,8 @@
 package com.example.chuseok_coding.service.product;
 
 import com.example.chuseok_coding.controller.internal.api.dto.ProductResponseDto;
+import com.example.chuseok_coding.repository.IRepository;
+import com.example.chuseok_coding.repository.payment.Payment;
 import com.example.chuseok_coding.repository.product.Product;
 import com.example.chuseok_coding.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,14 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    private final ProductRepository productRepository;
+    /**
+     * Hexagonal (Port and Adaptor) 아키텍쳐 도입 시
+     *  - Controller <= Primary Adaptor = Driving Adaptor
+     *  - Application 인터페이스 <= Input Port
+     *  - Repository 인터페이스 <= Output Port
+     *  - Repository 구체클래스 <= Secondary Adaptor = Driven Adaptor
+     */
+    private final IRepository<Integer, Product> productRepository;
 
     public List<Product> getProducts() {
         return productRepository.findAll();

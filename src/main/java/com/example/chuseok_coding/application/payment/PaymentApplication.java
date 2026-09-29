@@ -1,19 +1,18 @@
-package com.example.chuseok_coding.repository.payment;
+package com.example.chuseok_coding.application.payment;
 
 import com.example.chuseok_coding.controller.internal.api.dto.PaymentResponseDto;
+import com.example.chuseok_coding.repository.payment.Payment;
 import com.example.chuseok_coding.repository.product.Product;
 import com.example.chuseok_coding.service.payment.PaymentService;
 import com.example.chuseok_coding.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PaymentApplication {
+public class PaymentApplication implements IPaymentApplication {
 
     private final PaymentService paymentService;
     private final ProductService productService;
