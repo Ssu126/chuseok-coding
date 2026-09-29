@@ -1,9 +1,9 @@
 package com.example.chuseok_coding.repository.payment;
 
+import com.example.chuseok_coding.common.context.UserContext;
 import com.example.chuseok_coding.repository.BaseEntity;
 import com.example.chuseok_coding.repository.product.Product;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -30,18 +30,21 @@ public class Payment extends BaseEntity {
         this.paidPrice = paidPrice;
     }
 
-    public static Payment create(List<Product> products, /* 누가 구매를 하였는지 */ Integer userId) {
+    public static Payment create(List<Product> products) {
         int generatedId = idGenerate();
+        Integer currentUserId = UserContext.getUserId();
         List<Integer> productIds = products.stream()
             .map(Product::getId)
             .toList();
         int paidPrice = products.stream()
             .map(Product::getPrice)
             .reduce(0, Integer::sum);
-        return new Payment(generatedId, productIds, paidPrice, userId);
+        return new Payment(generatedId, productIds, paidPrice, currentUserId);
     }
 
     public void complete(Integer requestedUserId) {
+        // ThreadLocal로부터 현재 요청한 유저 ID를 꺼내와서 권환 검증
+        Integer currentUserId = UserContext.getUserId();
         if (!requestedUserId.equals(super.createdBy)) {
             throw new RuntimeException("취소하려는 유져와 취소하려는 결제를 수행한 유저가 다릅니다 - requestedUserId : " + requestedUserId + " != paymentUserId: " + super.createdBy);
         }
@@ -50,7 +53,7 @@ public class Payment extends BaseEntity {
         }
         this.status = PaymentStatus.PAYMENT_COMPLETE;
         this.purchasedAt = LocalDateTime.now();
-        super.updated(requestedUserId);
+        super.updated();
     }
 
     public void cancel(Integer requestedUserId) {
@@ -62,6 +65,6 @@ public class Payment extends BaseEntity {
         }
         this.status = PaymentStatus.CANCEL_COMPLETE;
         this.cancelledAt = LocalDateTime.now();
-        super.updated(requestedUserId);
+        super.updated();
     }
 }

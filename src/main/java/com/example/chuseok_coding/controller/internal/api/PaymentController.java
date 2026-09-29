@@ -1,6 +1,7 @@
 package com.example.chuseok_coding.controller.internal.api;
 
 import com.example.chuseok_coding.application.payment.IPaymentApplication;
+import com.example.chuseok_coding.common.context.UserContext;
 import com.example.chuseok_coding.controller.internal.api.dto.PaymentCreateRequestDto;
 import com.example.chuseok_coding.controller.internal.api.dto.PaymentResponseDto;
 import com.example.chuseok_coding.controller.internal.api.dto.RequestingUserDto;
@@ -33,12 +34,17 @@ public class PaymentController {
     public PaymentResponseDto payment(@RequestBody PaymentCreateRequestDto request) {
         Integer requestedUserId = request.getRequestUserId();
         List<Integer> productIds = request.getProductIds();
-        return paymentApplication.payment(productIds, requestedUserId);
+        //requestedUserId의 권한을 잠시 전환하여 상품 결제를 진행한 뒤, 원래 상태로 되돌린다.
+        try (UserContext.ContextScope ignored = UserContext.withUser(requestedUserId)) {
+            return paymentApplication.payment(productIds);
+        }
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/internal/api/payments/{id}/cancel")
     public PaymentResponseDto cancel(@PathVariable Integer id, @RequestBody RequestingUserDto request) {
         Integer requestedUserId = request.getRequestUserId();
-        return paymentApplication.cancel(id, requestedUserId);
+        try (UserContext.ContextScope ignored = UserContext.withUser(requestedUserId)) {
+            return paymentApplication.cancel(id);
+        }
     }
 }
