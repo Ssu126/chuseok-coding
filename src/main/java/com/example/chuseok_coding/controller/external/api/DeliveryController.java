@@ -1,6 +1,7 @@
 package com.example.chuseok_coding.controller.external.api;
 
 import com.example.chuseok_coding.application.payment.DeliveryApplication;
+import com.example.chuseok_coding.controller.external.api.dto.DeliveryResponseDto;
 import com.example.chuseok_coding.repository.payment.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;

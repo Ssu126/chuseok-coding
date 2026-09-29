@@ -31,7 +31,6 @@ public class PaymentApplication implements IPaymentApplication {
         // 2. 실제 구매 완료
         Payment creating = Payment.create(updatedProducts);
         creating.complete();
-
         Payment createdPayment = paymentService.create(creating);
         return PaymentResponseDto.builder()
             .payment(createdPayment)
