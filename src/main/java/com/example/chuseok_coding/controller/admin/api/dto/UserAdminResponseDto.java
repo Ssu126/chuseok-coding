@@ -2,8 +2,10 @@ package com.example.chuseok_coding.controller.admin.api.dto;
 
 import com.example.chuseok_coding.repository.user.User;
 import com.example.chuseok_coding.repository.user.UserGrade;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
 public class UserAdminResponseDto {
     private final Integer id;
